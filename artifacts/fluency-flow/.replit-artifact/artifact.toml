@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "FluencyFlow"
+version = "1.0.0"
+id = "artifacts/fluency-flow"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20128
+
+[services.development]
+run = "pnpm --filter @workspace/fluency-flow run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fluency-flow", "run", "build" ]
+publicDir = "artifacts/fluency-flow/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20128"
+BASE_PATH = "/"
